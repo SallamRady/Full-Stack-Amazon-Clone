@@ -15,6 +15,7 @@ const productSchema = new Schema({
   description: Schema.Types.String,
   price: Schema.Types.Number,
   stockQuantity: Schema.Types.Number,
+  photo: Schema.Types.String,
   rating: [Schema.Types.Number],
 });
 
