@@ -2,7 +2,7 @@
 const express = require("express");
 require("dotenv").config();
 const mongoose = require("mongoose");
-const AdminRoutes = require("./routes/admin/product.route");
+const AdminRoutes = require("./routes/admin/index");
 const multerConfig = require("./utils/image.uploader");
 
 /******   create our express server application.  **************/
