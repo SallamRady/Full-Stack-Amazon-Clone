@@ -11,6 +11,8 @@ module.exports.createProduct = (req, res, next) => {
   let product = new Product();
   product.title = req.body.title;
   product.description = req.body.description;
+  product.Owner = req.body.ownerID;
+  product.Category = req.body.categoryID;
   product.stockQuantity = +req.body.stockQuantity;
   product.price = +req.body.price;
   if (req.file) product.photo = req.file.path;
@@ -71,6 +73,8 @@ module.exports.updateProduct = (req, res, next) => {
     .then((product) => {
       product.title = req.body.title;
       product.description = req.body.description;
+      product.Owner = req.body.ownerID;
+      product.Category = req.body.categoryID;
       product.stockQuantity = +req.body.stockQuantity;
       product.price = +req.body.price;
       if (req.file) {
