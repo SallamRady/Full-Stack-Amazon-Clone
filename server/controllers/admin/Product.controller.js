@@ -11,10 +11,9 @@ module.exports.createProduct = (req, res, next) => {
   let product = new Product();
   product.title = req.body.title;
   product.description = req.body.description;
-  product.photo = req.body.photo;
   product.stockQuantity = +req.body.stockQuantity;
   product.price = +req.body.price;
-  product.photo = req.file.path;
+  if (req.file) product.photo = req.file.path;
 
   product
     .save()
