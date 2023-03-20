@@ -8,13 +8,13 @@
         height="40"
         alt="Logo"
       />
-      <div class="location">
-        <i class="bi bi-geo-alt" />
+      <router-link to="/" class="location">
+        <i style="margin-right: 0.4rem" class="fa-solid fa-location-dot"></i>
         <div class="action-options">
           <span>Hello</span><br />
           <span><b>Select Your Address</b></span>
         </div>
-      </div>
+      </router-link>
     </div>
     <div class="middle">
       <form>
@@ -24,23 +24,28 @@
           <option>Computers</option>
         </select>
         <input type="search" />
-        <button type="submit">Search</button>
+        <button type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
       </form>
     </div>
     <div class="left">
-      <div>
+      <router-link to="/">
         <span> Hello Guest </span><br />
         <span><b>Sign In</b></span>
-      </div>
-      <div>
+      </router-link>
+      <router-link to="/">
         <span>Return</span><br />
         <span><b>Orders</b></span>
-      </div>
-      <div>
+      </router-link>
+      <router-link to="/">
         <span>Your</span><br />
         <span><b>Prime</b></span>
-      </div>
-      <div>Cart</div>
+      </router-link>
+      <router-link to="/" class="cart">
+        <span>0</span>
+        <i class="fa-solid fa-cart-shopping"></i>
+      </router-link>
     </div>
   </div>
 </template>
@@ -63,16 +68,57 @@ div.main-header > div {
   justify-content: space-around;
 }
 
-div.main-header .middle form * {
-  min-height: 30px;
+div.main-header .right .location {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+div.main-header .middle form {
+  display: flex;
+  justify-content: center;
+  height: 2rem;
 }
 div.main-header .middle form input {
   width: 15rem;
 }
+div.main-header .middle form button {
+  width: 3rem;
+  background-color: #fbc130;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+}
 
-div.main-header .middle form *:focus {
-  border: 1.88px solid rgb(25, 186, 240);
+div.main-header .middle form * {
+  border: none;
   outline: none;
 }
 
+div.main-header .middle form button:hover {
+  box-shadow: 1px 1px 2px #fbc130;
+}
+
+select {
+  border-radius: 8px 0 0 8px;
+}
+
+div.main-header .middle form *:focus {
+  border: 1.88px solid #fbc130;
+  outline: none;
+}
+
+.cart {
+  font-size: 1.5rem;
+}
+.cart span {
+  color: #fbc130;
+  font-weight: bolder;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
 </style>
