@@ -1,9 +1,18 @@
 <template>
-  <h1>Home</h1>
+  <SubHeader/>
+  <TheSlider/>
+  <ProductsSummary/>
+  <TheFooter/>
 </template>
 
 <script>
-export default {};
+import SubHeader from '../components/home/SubHeader.vue';
+import TheSlider from '../components/home/TheSlider.vue';
+import ProductsSummary from '../components/home/ProductsSummary.vue';
+import TheFooter from '@/components/layout/TheFooter.vue';
+export default {
+  components:{SubHeader,TheSlider,ProductsSummary,TheFooter}
+};
 </script>
 
 <style></style>
