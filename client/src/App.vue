@@ -1,14 +1,9 @@
 <template>
-  <MainHeader />
   <router-view></router-view>
 </template>
 
 <script>
-import MainHeader from "./components/layout/MainHeader.vue";
-
-export default {
-  components: { MainHeader },
-};
+export default {};
 </script>
 
 <style>

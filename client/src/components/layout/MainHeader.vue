@@ -1,13 +1,15 @@
 <template>
   <div class="main-header">
     <div class="right">
-      <img
-        src="../../assets/Amazon-Logo-ligt.png"
-        class="logo"
-        width="70"
-        height="40"
-        alt="Logo"
-      />
+      <router-link to="/">
+        <img
+          src="../../assets/Amazon-Logo-ligt.png"
+          class="logo"
+          width="70"
+          height="40"
+          alt="Logo"
+        />
+      </router-link>
       <router-link to="/" class="location">
         <i style="margin-right: 0.4rem" class="fa-solid fa-location-dot"></i>
         <div class="action-options">
@@ -30,7 +32,7 @@
       </form>
     </div>
     <div class="left">
-      <router-link to="/">
+      <router-link to="/signin">
         <span> Hello Guest </span><br />
         <span><b>Sign In</b></span>
       </router-link>
@@ -42,7 +44,7 @@
         <span>Your</span><br />
         <span><b>Prime</b></span>
       </router-link>
-      <router-link to="/" class="cart">
+      <router-link to="/cart" class="cart">
         <span>0</span>
         <i class="fa-solid fa-cart-shopping"></i>
       </router-link>
