@@ -1,17 +1,19 @@
 <template>
-  <SubHeader/>
-  <TheSlider/>
-  <ProductsSummary/>
-  <TheFooter/>
+  <MainHeader />
+  <SubHeader />
+  <TheSlider />
+  <ProductsSummary />
+  <TheFooter />
 </template>
 
 <script>
-import SubHeader from '../components/home/SubHeader.vue';
-import TheSlider from '../components/home/TheSlider.vue';
-import ProductsSummary from '../components/home/ProductsSummary.vue';
-import TheFooter from '@/components/layout/TheFooter.vue';
+import MainHeader from "../components/layout/MainHeader.vue";
+import SubHeader from "../components/home/SubHeader.vue";
+import TheSlider from "../components/home/TheSlider.vue";
+import ProductsSummary from "../components/home/ProductsSummary.vue";
+import TheFooter from "@/components/layout/TheFooter.vue";
 export default {
-  components:{SubHeader,TheSlider,ProductsSummary,TheFooter}
+  components: { MainHeader, SubHeader, TheSlider, ProductsSummary, TheFooter },
 };
 </script>
 
