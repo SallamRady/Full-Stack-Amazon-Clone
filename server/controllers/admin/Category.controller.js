@@ -1,4 +1,5 @@
 const Category = require("../../models/Category.model");
+const validationResult = require("express-validator").validationResult;
 
 /**
  * title:createCategory
@@ -6,27 +7,38 @@ const Category = require("../../models/Category.model");
  * Method:POST
  */
 module.exports.createCategory = (req, res, next) => {
-  let category = new Category();
-  category.title = req.body.title;
+  // check incomming data is valid?
+  let errors = validationResult(req).array();
+  if (errors.length > 0) {
+    let response = {
+      status: "Validation Errors",
+      errors: errors,
+    };
+    res.status(403).json(response);
+  } else {
+    //data is valid.
+    let category = new Category();
+    category.title = req.body.title;
 
-  category
-    .save()
-    .then((cat) => {
-      let response = {
-        status: "Success",
-        msg: "new Category created successfully.",
-        category: cat,
-      };
-      res.status(201).json(response);
-    })
-    .catch((err) => {
-      let response = {
-        status: "Error",
-        msg: err.message,
-        error: err,
-      };
-      res.status(500).json(response);
-    });
+    category
+      .save()
+      .then((cat) => {
+        let response = {
+          status: "Success",
+          msg: "new Category created successfully.",
+          category: cat,
+        };
+        res.status(201).json(response);
+      })
+      .catch((err) => {
+        let response = {
+          status: "Error",
+          msg: err.message,
+          error: err,
+        };
+        res.status(500).json(response);
+      });
+  }
 };
 
 /**
@@ -60,28 +72,39 @@ module.exports.getCategories = (req, res, next) => {
  * Method:PUT
  */
 module.exports.updateCategory = (req, res, next) => {
-  let { id } = req.body;
-  Category.findById(id)
-    .then((category) => {
-      category.title = req.body.title;
+  // check incomming data is valid?
+  let errors = validationResult(req).array();
+  if (errors.length > 0) {
+    let response = {
+      status: "Validation Errors",
+      errors: errors,
+    };
+    res.status(403).json(response);
+  } else {
+    //data is valid.
+    let { id } = req.body;
+    Category.findById(id)
+      .then((category) => {
+        category.title = req.body.title;
 
-      category.save().then((cat) => {
+        category.save().then((cat) => {
+          let response = {
+            status: "Success",
+            msg: "Category updated successfully.",
+            category: cat,
+          };
+          res.status(201).json(response);
+        });
+      })
+      .catch((err) => {
         let response = {
-          status: "Success",
-          msg: "Category updated successfully.",
-          category: cat,
+          status: "Error",
+          msg: err.message,
+          error: err,
         };
-        res.status(201).json(response);
+        res.status(500).json(response);
       });
-    })
-    .catch((err) => {
-      let response = {
-        status: "Error",
-        msg: err.message,
-        error: err,
-      };
-      res.status(500).json(response);
-    });
+  }
 };
 
 /**
@@ -90,22 +113,33 @@ module.exports.updateCategory = (req, res, next) => {
  * Method:DELETE
  */
 module.exports.deleteCategory = (req, res, next) => {
-  let { id } = req.body;
-  Category.findByIdAndRemove(id)
-    .then((cat) => {
-      let response = {
-        status: "Success",
-        msg: "Category deleted successfully.",
-        category: cat,
-      };
-      res.status(200).json(response);
-    })
-    .catch((err) => {
-      let response = {
-        status: "Error",
-        msg: err.message,
-        error: err,
-      };
-      res.status(500).json(response);
-    });
+  // check incomming data is valid?
+  let errors = validationResult(req).array();
+  if (errors.length > 0) {
+    let response = {
+      status: "Validation Errors",
+      errors: errors,
+    };
+    res.status(403).json(response);
+  } else {
+    //data is valid.
+    let { id } = req.body;
+    Category.findByIdAndRemove(id)
+      .then((cat) => {
+        let response = {
+          status: "Success",
+          msg: "Category deleted successfully.",
+          category: cat,
+        };
+        res.status(200).json(response);
+      })
+      .catch((err) => {
+        let response = {
+          status: "Error",
+          msg: err.message,
+          error: err,
+        };
+        res.status(500).json(response);
+      });
+  }
 };
