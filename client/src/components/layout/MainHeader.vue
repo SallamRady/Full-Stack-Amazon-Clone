@@ -14,7 +14,7 @@
         <i style="margin-right: 0.4rem" class="fa-solid fa-location-dot"></i>
         <div class="action-options">
           <span>Hello</span><br />
-          <span><b>Select Your Address</b></span>
+          <span><b>Our Users From, {{country}}</b></span>
         </div>
       </router-link>
     </div>
@@ -52,7 +52,24 @@
   </div>
 </template>
 
-<script></script>
+<script>
+import { countries } from "moment-timezone/data/meta/latest.json";
+export default {
+  date: () => ({
+    country: '',
+  }),
+  beforeMount() {
+    let { timeZone } = Intl.DateTimeFormat().resolvedOptions();
+    // this.country = countries.filter((item) => item.zones[0] == timeZone);
+    Object.keys(countries).forEach((item) => {
+      if('zones',countries[item].zones[0] == timeZone){
+        this.country = countries[item].name;
+      }
+    });
+    console.log("country", timeZone, this.country, countries);
+  },
+};
+</script>
 
 <style>
 div.main-header {

@@ -18,5 +18,5 @@ const productSchema = new Schema({
   photo: Schema.Types.String,
   rating: [Schema.Types.Number],
 });
-
+productSchema.index({ title: "text" });
 module.exports = mongoose.model("Product", productSchema);
