@@ -11,8 +11,10 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 library.add(far);
 import { dom } from "@fortawesome/fontawesome-svg-core";
 dom.watch();
+import store from "./store/index.js";
 
 createApp(App)
   .component("font-awesome-icon", FontAwesomeIcon)
   .use(router)
+  .use(store)
   .mount("#app");

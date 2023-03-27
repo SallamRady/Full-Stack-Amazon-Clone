@@ -26,7 +26,7 @@ module.exports.createProduct = (req, res, next) => {
     product.Category = req.body.categoryID;
     product.stockQuantity = +req.body.stockQuantity;
     product.price = +req.body.price;
-    if (req.file) product.photo = req.file.path;
+    if (req.file) product.photo = req.file.filename;
 
     product
       .save()

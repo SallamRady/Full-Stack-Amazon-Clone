@@ -19,5 +19,6 @@ export default {};
   align-items: center;
   color: #fff;
   padding: 3rem 0;
+  margin-top: 2rem;
 }
 </style>

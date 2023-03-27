@@ -1,29 +1,19 @@
 <template>
   <div class="sub-main-header">
     <router-link to="/">All</router-link>
-    <router-link to="/">Category</router-link>
-    <router-link to="/">Category</router-link>
-    <router-link to="/">Category</router-link>
-    <router-link to="/">Category</router-link>
-    <router-link to="/">Category</router-link>
-    <router-link to="/">Category</router-link>
-    <router-link to="/">Category</router-link>
-    <router-link to="/">Category</router-link>
-    <router-link to="/">Category</router-link>
-    <router-link to="/">Category</router-link>
-    <router-link to="/">Category</router-link>
-    <router-link to="/">Category</router-link>
-    <router-link to="/">Category</router-link>
-    <router-link to="/">Category</router-link>
-    <router-link to="/">Category</router-link>
-    <router-link to="/">Category</router-link>
-    <router-link to="/">Category</router-link>
-    <router-link to="/">Category</router-link>
+    <router-link
+      v-for="item in categories"
+      :key="item._id"
+      :to="'/categoryDetails/' + item._id"
+      >{{ item.title }}</router-link
+    >
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["categories"],
+};
 </script>
 
 <style>
@@ -40,10 +30,10 @@ export default {};
   padding: 0 0.3rem;
 }
 
-.sub-main-header a:hover{
-    font-weight: bolder;
+.sub-main-header a:hover {
+  font-weight: bolder;
 }
-.sub-main-header a:active{
-    font-weight: bolder;
+.sub-main-header a:active {
+  font-weight: bolder;
 }
 </style>

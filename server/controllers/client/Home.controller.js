@@ -83,3 +83,25 @@ module.exports.search = (req, res, next) => {
       });
   }
 };
+
+module.exports.productDetails = (req, res, next) => {
+  let { id } = req.params;
+
+  Product.findById(id)
+    .then((product) => {
+      let response = {
+        status: "Success",
+        msg: "Product fetched successfully",
+        product: product,
+      };
+      res.json(response);
+    })
+    .catch((err) => {
+      let response = {
+        status: "Error",
+        msg: err.message,
+        error: err,
+      };
+      res.status(500).json(response);
+    });
+};

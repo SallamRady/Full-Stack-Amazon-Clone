@@ -1,10 +1,15 @@
 <template>
+  <MainHeader />
+  <SubHeader />
   <div class="detailsPage">
     <div class="productImg">
-      <img src="../assets/slider/Banner3.jpg" alt="Product Image" />
+      <img
+        :src="'http://localhost:8000/' + product.photo"
+        alt="Product Image"
+      />
     </div>
     <div class="productInfo">
-      <h3>Product 101</h3>
+      <h3>{{ product.title }}</h3>
       <div>
         <i style="color: #fbc130" class="fa-solid fa-star"></i>
         <i style="color: #fbc130" class="fa-solid fa-star"></i>
@@ -15,21 +20,18 @@
       <div class="price">
         <strong>
           <ins style="color: green">
-            499.99 <font-awesome-icon :icon="['fas', 'dollar-sign']" />
+            {{ product.price }}
+            <font-awesome-icon :icon="['fas', 'dollar-sign']" />
           </ins>
           Insted Of
           <del style="color: red">
-            550 <font-awesome-icon :icon="['fas', 'dollar-sign']" />
+            {{ product.price + 50 }}
+            <font-awesome-icon :icon="['fas', 'dollar-sign']" />
           </del>
         </strong>
       </div>
       <hr />
-      <p class="description">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, sed.
-        Distinctio nobis a excepturi eligendi dignissimos quia ut laborum
-        consequatur eos esse saepe, architecto obcaecati molestias magni cum,
-        porro aperiam!
-      </p>
+      <p class="description">{{ product.description }}</p>
       <div class="actions">
         <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
         <button @click="toHome()">
@@ -38,10 +40,33 @@
       </div>
     </div>
   </div>
+  <TheFooter />
 </template>
 
 <script>
+import MainHeader from "@/components/layout/MainHeader.vue";
+import SubHeader from "@/components/home/SubHeader.vue";
+import TheFooter from "@/components/layout/TheFooter.vue";
+
 export default {
+  components: { MainHeader, SubHeader, TheFooter },
+  data: () => ({ product: {} }),
+  beforeMount() {
+    let { id } = this.$route.params;
+    const url = `http://localhost:8000/product/${id}`;
+
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log("data", data);
+        this.product = data.product;
+      })
+      .catch((err) => {
+        console.log("error in fetch product:", err);
+      });
+  },
   methods: {
     toHome() {
       this.$router.push({ name: "homePage" });
