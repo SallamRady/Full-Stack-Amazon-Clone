@@ -1,418 +1,27 @@
 <template>
-  <div class="row">
-    <h2 class="title">Category 101</h2>
+  <div class="row" v-for="item in categories" :key="item._id">
+    <h2 class="title">{{ item.title }}</h2>
     <div class="row-posters">
-      <div class="product">
+      <div
+        class="product"
+        v-for="product in products"
+        :key="product._id"
+        v-show="product.Category == item._id"
+      >
         <img
           key="asd"
           class="row-poster"
-          src="../../assets/slider/Banner4.jpg"
+          :src="'http://localhost:8000/' + product.photo"
           alt="asd"
         />
         <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
+          <h3>{{ product.title }}</h3>
+          <p>
+            <strong>Rating : 4.6</strong><span>{{ product.price }} $</span>
+          </p>
           <div class="actions">
             <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button @click="showDetails(4)">Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner2.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner5.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner6.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner1.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner4.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner3.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner1.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- More... -->
-      <div class="more">
-        <router-link to="/">
-          <i class="fa-solid fa-plus"></i>
-          <span> </span>
-          <b>More</b>
-        </router-link>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <h2 class="title">Category 102</h2>
-    <div class="row-posters">
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner4.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner2.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner5.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner6.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner1.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner4.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner3.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner1.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- More... -->
-      <div class="more">
-        <router-link to="/">
-          <i class="fa-solid fa-plus"></i>
-          <span> </span>
-          <b>More</b>
-        </router-link>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <h2 class="title">Category 103</h2>
-    <div class="row-posters">
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner4.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner2.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner5.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner6.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner1.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner4.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner3.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <img
-          key="asd"
-          class="row-poster"
-          src="../../assets/slider/Banner1.jpg"
-          alt="asd"
-        />
-        <div class="info">
-          <h3>OOP A7</h3>
-          <p><strong>Rating : 4.6</strong><span>90 $</span></p>
-          <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
-            <button>Details</button>
+            <button @click="showDetails(product._id)">Details</button>
           </div>
         </div>
       </div>
@@ -431,11 +40,29 @@
 
 <script>
 export default {
-  methods:{
-    showDetails(id){
-      this.$router.push(`product/${id}`)
-    }
-  }
+  data: () => ({
+    products: [],
+  }),
+  props: ["categories"],
+  beforeMount() {
+    const url = "http://localhost:8000/products";
+
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        this.products = data.products;
+      })
+      .catch((err) => {
+        console.log("error in fetch categories:", err);
+      });
+  },
+  methods: {
+    showDetails(id) {
+      this.$router.push(`product/${id}`);
+    },
+  },
 };
 </script>
 
@@ -465,27 +92,31 @@ export default {
   width: 100%;
   max-height: 120px;
   transition: transform 450ms;
-  margin-right: 10px;
-  cursor: pointer;
+  min-height: 11rem;
+  margin: 0.5rem;
 }
 .row-posterLarge {
   max-height: 250px;
 }
 
 .product {
-  min-width: 270px;
-  padding: 0.3rem;
-  margin: 0.2rem;
+  width: 25rem;
+  min-width: 25rem;
+  padding: 1rem;
+  margin: 0.5rem 1.2rem;
   transition: transform 450ms;
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .smallBox {
   min-width: 250px;
 }
-/*.product:hover {
+.product:hover {
   transform: scale(1.08);
   box-shadow: 2px 2px 4px;
-}*/
+}
 
 .product .info {
   color: #000;

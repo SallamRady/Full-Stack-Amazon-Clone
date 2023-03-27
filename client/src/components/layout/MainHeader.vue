@@ -14,16 +14,18 @@
         <i style="margin-right: 0.4rem" class="fa-solid fa-location-dot"></i>
         <div class="action-options">
           <span>Hello</span><br />
-          <span><b>Our Users From, {{country}}</b></span>
+          <span
+            ><b>Our Users From, {{ country }}</b></span
+          >
         </div>
       </router-link>
     </div>
     <div class="middle">
       <form>
         <select>
-          <option>All</option>
-          <option>Mobiles</option>
-          <option>Computers</option>
+          <option v-for="item in categories" :key="item._id">
+            {{ item.title }}
+          </option>
         </select>
         <input type="search" />
         <button type="submit">
@@ -54,15 +56,18 @@
 
 <script>
 import { countries } from "moment-timezone/data/meta/latest.json";
+
 export default {
   date: () => ({
-    country: '',
+    country: "",
   }),
-  beforeMount() {
+  props: ["categories"],
+  created() {},
+  async beforeMount() {
     let { timeZone } = Intl.DateTimeFormat().resolvedOptions();
     // this.country = countries.filter((item) => item.zones[0] == timeZone);
     Object.keys(countries).forEach((item) => {
-      if('zones',countries[item].zones[0] == timeZone){
+      if (("zones", countries[item].zones[0] == timeZone)) {
         this.country = countries[item].name;
       }
     });

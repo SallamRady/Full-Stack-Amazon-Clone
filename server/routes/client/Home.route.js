@@ -7,6 +7,9 @@ router.get("/categories", HomeController.getCategories);
 
 router.get("/products", HomeController.getProducts);
 
+
+router.get("/product/:id", HomeController.productDetails);
+
 router.post(
   "/search",
   check("searchQuery")
