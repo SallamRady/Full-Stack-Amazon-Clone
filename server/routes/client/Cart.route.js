@@ -27,6 +27,17 @@ router.post(
 );
 
 router.post(
+  "/deleteCartItem",
+  /* Guard our route :) */
+  isAuthGuard,
+  /* validate incomming data */
+  check("userId").exists().notEmpty().withMessage("userId is required!"),
+  check("productId").exists().notEmpty().withMessage("productId is required!"),
+  /*    handle request method   */
+  CartController.deleteCartItem
+);
+
+router.post(
   "/cart",
   /* Guard our route :) */
   isAuthGuard,

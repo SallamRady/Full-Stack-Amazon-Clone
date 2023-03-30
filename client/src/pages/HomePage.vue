@@ -1,5 +1,4 @@
 <template>
-  <MainHeader :categories="categories"/>
   <SubHeader :categories="categories"/>
   <TheSlider />
   <ProductsSummary :categories="categories"/>
@@ -7,7 +6,6 @@
 </template>
 
 <script>
-import MainHeader from "../components/layout/MainHeader.vue";
 import SubHeader from "../components/home/SubHeader.vue";
 import TheSlider from "../components/home/TheSlider.vue";
 import ProductsSummary from "../components/home/ProductsSummary.vue";
@@ -33,7 +31,7 @@ export default {
         console.log("error in fetch categories:", err);
       });
   },
-  components: { MainHeader, SubHeader, TheSlider, ProductsSummary, TheFooter },
+  components: { SubHeader, TheSlider, ProductsSummary, TheFooter },
 };
 </script>
 

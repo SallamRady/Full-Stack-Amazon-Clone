@@ -83,6 +83,7 @@ module.exports.signup = (req, res, next) => {
 module.exports.signin = (req, res, next) => {
   // check incomming data is valid?
   let errors = validationResult(req).array();
+  
   if (errors.length > 0) {
     let response = {
       status: "Validation Errors",
@@ -109,7 +110,7 @@ module.exports.signin = (req, res, next) => {
               };
               return res.status(401).json(response);
             } else {
-              let token = jwt.sign({...user}, "somesecret101");
+              let token = jwt.sign({ ...user }, "somesecret101");
               return res.status(200).json({ token });
             }
           });

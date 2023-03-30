@@ -34,10 +34,14 @@
       </form>
     </div>
     <div class="left">
-      <router-link to="/signin">
+      <router-link v-if="!logged" to="/signin">
         <span> Hello Guest </span><br />
         <span><b>Sign In</b></span>
       </router-link>
+      <button v-else @click="signout" class="signout">
+        <span> Hello {{ userName }} </span><br />
+        <span><b>Sign Out</b></span>
+      </button>
       <router-link to="/">
         <span>Return</span><br />
         <span><b>Orders</b></span>
@@ -47,7 +51,7 @@
         <span><b>Prime</b></span>
       </router-link>
       <router-link to="/cart" class="cart">
-        <span>0</span>
+        <span>{{ cartQuantity }}</span>
         <i class="fa-solid fa-cart-shopping"></i>
       </router-link>
     </div>
@@ -56,12 +60,17 @@
 
 <script>
 import { countries } from "moment-timezone/data/meta/latest.json";
+import { mapGetters } from "vuex";
+import { clear, isLogged } from "../../utils/localStorage";
 
 export default {
   date: () => ({
     country: "",
   }),
   props: ["categories"],
+  computed: {
+    ...mapGetters(["userName", "logged", "cartQuantity"]),
+  },
   created() {},
   async beforeMount() {
     let { timeZone } = Intl.DateTimeFormat().resolvedOptions();
@@ -73,6 +82,12 @@ export default {
     });
     console.log("country", timeZone, this.country, countries);
   },
+  methods: {
+    signout() {
+      clear(["token", "email"]);
+      this.$store.commit("setIsLogged", { value: isLogged() });
+    },
+  },
 };
 </script>
 
@@ -83,6 +98,10 @@ div.main-header {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 30;
 }
 
 div.main-header > div {
@@ -144,5 +163,15 @@ div.main-header .middle form *:focus {
 a {
   color: #fff;
   text-decoration: none;
+}
+
+button.signout {
+  outline: none;
+  border: none;
+  background: no-repeat;
+  color: #fff;
+  text-align: left;
+  font-size: 1rem;
+  cursor: pointer;
 }
 </style>

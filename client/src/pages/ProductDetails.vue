@@ -1,6 +1,4 @@
 <template>
-  <MainHeader />
-  <SubHeader />
   <div class="detailsPage">
     <div class="productImg">
       <img
@@ -33,7 +31,9 @@
       <hr />
       <p class="description">{{ product.description }}</p>
       <div class="actions">
-        <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+        <button @click="addItem(product)">
+          <i class="fa-solid fa-cart-plus"></i> Add to Cart
+        </button>
         <button @click="toHome()">
           <font-awesome-icon :icon="['fas', 'house']" /> Back To Home
         </button>
@@ -44,12 +44,12 @@
 </template>
 
 <script>
-import MainHeader from "@/components/layout/MainHeader.vue";
-import SubHeader from "@/components/home/SubHeader.vue";
 import TheFooter from "@/components/layout/TheFooter.vue";
+import { mapActions, mapGetters } from "vuex";
+import { isLogged } from "../utils/localStorage";
 
 export default {
-  components: { MainHeader, SubHeader, TheFooter },
+  components: {  TheFooter },
   data: () => ({ product: {} }),
   beforeMount() {
     let { id } = this.$route.params;
@@ -67,9 +67,23 @@ export default {
         console.log("error in fetch product:", err);
       });
   },
+  computed: {
+    ...mapGetters(["userId"]),
+  },
   methods: {
+    ...mapActions(["addCartItem"]),
     toHome() {
       this.$router.push({ name: "homePage" });
+    },
+    addItem(item) {
+      if (!isLogged()) {
+        this.$router.push("/signin");
+      } else {
+        this.addCartItem({
+          userId: this.userId,
+          product: { ...item },
+        });
+      }
     },
   },
 };

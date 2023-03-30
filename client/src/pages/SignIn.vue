@@ -9,15 +9,19 @@
       />
     </router-link>
     <h2>Sing<span style="color: #fbc000">In</span></h2>
-    <form action="login" method="post">
+    <form @submit.prevent="handleSubmit" method="post">
       <div class="input-control">
         <label>Email address</label>
-        <input type="email" placeholder="Enter Your Email" />
+        <input type="email" v-model="email" placeholder="Enter Your Email" />
         <small>We'll never share your email with anyone else.</small>
       </div>
       <div class="input-control">
         <label>Password</label>
-        <input type="password" placeholder="Enter Your Password" />
+        <input
+          type="password"
+          v-model="password"
+          placeholder="Enter Your Password"
+        />
       </div>
       <div>
         <input type="checkbox" />
@@ -29,7 +33,30 @@
       </div>
     </form>
   </div>
+  <ErrorAlert title="Error 101" content="content 101" />
 </template>
+
+<script>
+import { mapActions } from "vuex";
+import ErrorAlert from "@/components/layout/ErrorAlert.vue";
+
+export default {
+  components: { ErrorAlert },
+  data: () => ({
+    email: "",
+    password: "",
+  }),
+  methods: {
+    ...mapActions({ signin: "signin" }),
+    handleSubmit() {
+      this.$store.dispatch("signin", {
+        password: this.password,
+        email: this.email,
+      });
+    },
+  },
+};
+</script>
 
 <style>
 .login {
