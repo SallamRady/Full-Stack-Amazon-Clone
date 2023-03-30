@@ -4,7 +4,7 @@ export default {
     state.email = payload.email;
     state.token = payload.token;
   },
-  setIsLogged(state,payload){
+  setIsLogged(state, payload) {
     state.isLoggedIn = payload.value;
-  }
+  },
 };

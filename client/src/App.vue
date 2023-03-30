@@ -8,6 +8,7 @@
 import { isLogged } from "./utils/localStorage";
 import MainHeader from "./components/layout/MainHeader.vue";
 import TheFooter from "./components/layout/TheFooter.vue";
+import { mapActions } from "vuex";
 
 export default {
   components: { MainHeader, TheFooter },
@@ -15,6 +16,9 @@ export default {
     return {
       categories: [],
     };
+  },
+  methods: {
+    ...mapActions(["logout"]),
   },
   beforeMount() {
     const url = "http://localhost:8000/categories";

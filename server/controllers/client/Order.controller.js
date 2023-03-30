@@ -83,7 +83,7 @@ module.exports.checkout = (req, res, next) => {
                   return {
                     name: pro.productId.title,
                     description: pro.productId.description,
-                    amount: pro.productId.price,
+                    amount: pro.productId.price * 100,
                     quantity: pro.quantity,
                     currency: "usd",
                   };

@@ -84,4 +84,29 @@ export default {
         console.log("error in authentication signin", err);
       });
   },
+
+  async logout() {
+    let userId = localStorage.getItem("userId");
+    const body = JSON.stringify({
+      userId,
+    });
+
+    fetch(ServerUrl + "logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: body,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status == "Success") {
+          return {status:data.status};
+        }
+        return {status:data.status};
+      })
+      .catch((err) => {
+        console.log("error in authentication signout", err);
+      });
+  },
 };

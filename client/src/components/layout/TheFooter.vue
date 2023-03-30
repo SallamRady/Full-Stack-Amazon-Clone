@@ -50,7 +50,7 @@
 export default {};
 </script>
 
-<style  scoped>
+<style scoped>
 .mainFooter {
   background-color: #232f3e;
   margin-top: 3rem;
@@ -89,5 +89,11 @@ export default {};
   color: #fff;
   padding: 3rem 0;
   margin-top: 0;
+}
+@media only screen and (max-width: 900px) {
+  .subFooter {
+    flex-wrap: wrap;
+    justify-content: start;
+  }
 }
 </style>
