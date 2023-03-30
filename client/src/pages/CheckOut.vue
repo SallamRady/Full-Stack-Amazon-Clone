@@ -95,7 +95,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .banner {
   display: flex;
   justify-content: space-around;

@@ -1,13 +1,5 @@
 <template>
   <div class="login">
-    <router-link to="/" class="logoImg">
-      <img
-        src="../assets/amazon_logo.png"
-        width="160"
-        height="150"
-        alt="amazon logo"
-      />
-    </router-link>
     <h2>Sing<span style="color: #fbc000">Up</span></h2>
     <form action="login" method="post" @submit.prevent="handleSubmit">
       <div class="input-control">
@@ -503,40 +495,33 @@ export default {
     // ...mapActions({ signup: 'signup' }),
     handleSubmit() {
       //validate input
-      this.$store
-        .dispatch("signup", {
-          name: this.name,
-          email: this.email,
-          password: this.password,
-          confirmPassword: this.confirmPassword,
-          country: this.country,
-          state: this.state,
-          city: this.city,
-          postalCode: this.postalCode,
-          street: this.street,
-        });
+      this.$store.dispatch("signup", {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        confirmPassword: this.confirmPassword,
+        country: this.country,
+        state: this.state,
+        city: this.city,
+        postalCode: this.postalCode,
+        street: this.street,
+      });
 
       //send request
     },
   },
 };
 </script>
-<style>
+<style  scoped>
 .login {
-  height: 100vh;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 2rem 0;
+  margin-bottom: 4rem;
 }
-
-.login a.logoImg {
-  position: absolute;
-  top: 0%;
-  left: 0%;
-}
-
 .login h2 {
   font-size: 1.7rem;
   text-shadow: 0.6px 0.6px 1px;

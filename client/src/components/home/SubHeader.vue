@@ -16,7 +16,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .sub-main-header {
   background-color: #321c0c;
   padding: 0.8rem;
@@ -28,6 +28,8 @@ export default {
 }
 .sub-main-header a {
   padding: 0 0.3rem;
+  color: #fff;
+  text-decoration: none;
 }
 
 .sub-main-header a:hover {

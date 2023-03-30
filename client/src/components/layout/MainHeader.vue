@@ -91,7 +91,7 @@ export default {
 };
 </script>
 
-<style>
+<style  scoped>
 div.main-header {
   background-color: #131921;
   min-height: 89px;

@@ -2,14 +2,12 @@
   <SubHeader :categories="categories"/>
   <TheSlider />
   <ProductsSummary :categories="categories"/>
-  <TheFooter />
 </template>
 
 <script>
 import SubHeader from "../components/home/SubHeader.vue";
 import TheSlider from "../components/home/TheSlider.vue";
 import ProductsSummary from "../components/home/ProductsSummary.vue";
-import TheFooter from "@/components/layout/TheFooter.vue";
 
 export default {
   data() {
@@ -31,7 +29,7 @@ export default {
         console.log("error in fetch categories:", err);
       });
   },
-  components: { SubHeader, TheSlider, ProductsSummary, TheFooter },
+  components: { SubHeader, TheSlider, ProductsSummary },
 };
 </script>
 
