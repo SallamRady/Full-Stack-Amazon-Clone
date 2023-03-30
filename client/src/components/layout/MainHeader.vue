@@ -42,11 +42,11 @@
         <span> Hello {{ userName }} </span><br />
         <span><b>Sign Out</b></span>
       </button>
-      <router-link to="/">
+      <router-link to="/" class="Orders">
         <span>Return</span><br />
         <span><b>Orders</b></span>
       </router-link>
-      <router-link to="/">
+      <router-link to="/" class="Prime">
         <span>Your</span><br />
         <span><b>Prime</b></span>
       </router-link>
@@ -60,7 +60,7 @@
 
 <script>
 import { countries } from "moment-timezone/data/meta/latest.json";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { clear, isLogged } from "../../utils/localStorage";
 
 export default {
@@ -83,15 +83,22 @@ export default {
     console.log("country", timeZone, this.country, countries);
   },
   methods: {
+    ...mapActions(["logout"]),
     signout() {
-      clear(["token", "email"]);
-      this.$store.commit("setIsLogged", { value: isLogged() });
+      this.logout()
+        .then(() => {
+          clear(["token", "name", "address", "userId", "email"]);
+          this.$store.commit("setIsLogged", { value: isLogged() });
+        })
+        .catch((err) => {
+          console.log("error in logout :", err);
+        });
     },
   },
 };
 </script>
 
-<style  scoped>
+<style scoped>
 div.main-header {
   background-color: #131921;
   min-height: 89px;
@@ -173,5 +180,25 @@ button.signout {
   text-align: left;
   font-size: 1rem;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 1150px) {
+  div.main-header .middle {
+    display: none;
+  }
+  div.main-header .right {
+    justify-content: start;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  div.main-header .right .location {
+    display: none;
+  }
+
+  div.main-header .left .Orders,
+  div.main-header .left .Prime {
+    display: none;
+  }
 }
 </style>

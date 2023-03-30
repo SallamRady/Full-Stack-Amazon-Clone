@@ -43,4 +43,13 @@ router.post(
   AuthController.signin
 );
 
+
+router.post(
+  "/logout",
+  /* validate incomming data */
+  check("userId").exists().notEmpty().withMessage("userId is required!"),
+  /*    handle request method   */
+  AuthController.logout
+);
+
 module.exports = router;

@@ -3,6 +3,7 @@ const Address = require("../../models/Address.model");
 const validationResult = require("express-validator").validationResult;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { response } = require("express");
 
 module.exports.signup = (req, res, next) => {
   // check incomming data is valid?
@@ -83,7 +84,7 @@ module.exports.signup = (req, res, next) => {
 module.exports.signin = (req, res, next) => {
   // check incomming data is valid?
   let errors = validationResult(req).array();
-  
+
   if (errors.length > 0) {
     let response = {
       status: "Validation Errors",
@@ -113,6 +114,50 @@ module.exports.signin = (req, res, next) => {
               let token = jwt.sign({ ...user }, "somesecret101");
               return res.status(200).json({ token });
             }
+          });
+        }
+      })
+      .catch((err) => {
+        let response = {
+          status: "Error",
+          msg: err.message,
+          error: err,
+        };
+        return res.status(500).json(response);
+      });
+  }
+};
+
+module.exports.logout = (req, res, next) => {
+  // check incomming data is valid?
+  let errors = validationResult(req).array();
+
+  if (errors.length > 0) {
+    let response = {
+      status: "Validation Errors",
+      errors: errors,
+    };
+    return res.status(403).json(response);
+  } else {
+    //data is valid.
+    let { userId } = req.body;
+    User.findById(userId)
+      .then((user) => {
+        if (!user) {
+          let response = {
+            status: "Error",
+            msg: "Invalid email or password.",
+          };
+          return res.status(401).json(response);
+        } else {
+          user.cart.items = [];
+          user.save().then((result) => {
+            let response = {
+              status: "Success",
+              msg: "User Logged out successfully.",
+              result: result,
+            };
+            return res.status(200).json(response);
           });
         }
       })
