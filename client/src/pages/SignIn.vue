@@ -1,13 +1,5 @@
 <template>
   <div class="login">
-    <router-link to="/" class="logoImg">
-      <img
-        src="../assets/amazon_logo.png"
-        width="160"
-        height="150"
-        alt="amazon logo"
-      />
-    </router-link>
     <h2>Sing<span style="color: #fbc000">In</span></h2>
     <form @submit.prevent="handleSubmit" method="post">
       <div class="input-control">
@@ -58,19 +50,13 @@ export default {
 };
 </script>
 
-<style>
+<style  scoped>
 .login {
-  height: 100vh;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.login a.logoImg {
-  position: absolute;
-  top: 0%;
-  left: 0%;
 }
 
 .login h2 {

@@ -66,16 +66,13 @@
       </ul>
     </div>
   </div>
-  <TheFooter />
 </template>
 
 <script>
-import TheFooter from "../components/layout/TheFooter.vue";
 import { isLogged } from "../utils/localStorage";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-  components: { TheFooter },
   data: () => ({
     loading: false,
   }),
@@ -137,7 +134,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .banner {
   display: flex;
   justify-content: space-around;

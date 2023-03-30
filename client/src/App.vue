@@ -1,14 +1,16 @@
 <template>
   <MainHeader :categories="categories" />
   <router-view></router-view>
+  <TheFooter />
 </template>
 
 <script>
 import { isLogged } from "./utils/localStorage";
 import MainHeader from "./components/layout/MainHeader.vue";
+import TheFooter from "./components/layout/TheFooter.vue";
 
 export default {
-  components: { MainHeader },
+  components: { MainHeader, TheFooter },
   data() {
     return {
       categories: [],

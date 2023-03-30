@@ -40,16 +40,13 @@
       </div>
     </div>
   </div>
-  <TheFooter />
 </template>
 
 <script>
-import TheFooter from "@/components/layout/TheFooter.vue";
 import { mapActions, mapGetters } from "vuex";
 import { isLogged } from "../utils/localStorage";
 
 export default {
-  components: {  TheFooter },
   data: () => ({ product: {} }),
   beforeMount() {
     let { id } = this.$route.params;
@@ -89,7 +86,7 @@ export default {
 };
 </script>
 
-<style>
+<style  scoped>
 .detailsPage {
   display: flex;
   justify-content: space-around;

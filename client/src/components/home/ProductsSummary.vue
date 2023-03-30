@@ -85,7 +85,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .row {
   color: #fff;
   margin-left: 20px;
