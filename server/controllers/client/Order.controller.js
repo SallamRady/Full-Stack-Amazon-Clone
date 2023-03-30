@@ -1,6 +1,10 @@
 const User = require("../../models/User.model");
 const Order = require("../../models/Order.model");
 const validationResult = require("express-validator").validationResult;
+const Stripe = require("stripe");
+const stripe = Stripe(
+  "sk_test_51Klc7QIx0ZhOngyzxhAZMfF6pR3ey9pI4sit2KlGwUOw7jB6gg9k2u5mIfnSaNRFYswaxby5F4ktD9rWcPd43ZEf00BspazeIt"
+);
 
 module.exports.orders = (req, res, next) => {
   // check incomming data is valid?
@@ -65,20 +69,36 @@ module.exports.checkout = (req, res, next) => {
           };
           res.status(401).json(response);
         } else {
-          let order = new Order({
-            userId: userId,
-            items: user.cart.items,
-          });
-          order.save().then(() => {
-            user.cart.items = [];
-            user.save().then((result) => {
-              let response = {
-                status: "Success",
-                msg: "Checkout Operation done successfully",
-                result: result,
-              };
-              res.status(200).json(response);
+          let totalSum = 0,
+            products;
+          user.populate("cart.items.productId").then((response) => {
+            products = response.cart.items;
+            products.forEach((pro) => {
+              totalSum += pro.productId.price * pro.quantity;
             });
+            stripe.checkout.sessions
+              .create({
+                payment_method_types: ["card"],
+                line_items: products.map((pro) => {
+                  return {
+                    name: pro.productId.title,
+                    description: pro.productId.description,
+                    amount: pro.productId.price,
+                    quantity: pro.quantity,
+                    currency: "usd",
+                  };
+                }),
+                success_url: "http://localhost:8080/#/checkout/success",
+                cancel_url: "http://localhost:8080/#/checkout/cancel",
+              })
+              .then((session) => {
+                let response = {
+                  status: "Success",
+                  msg: "Checkout Operation done successfully",
+                  sessionId: session.id,
+                };
+                res.status(200).json(response);
+              });
           });
         }
       })

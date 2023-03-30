@@ -20,7 +20,9 @@
             <strong>Rating : 4.6</strong><span>{{ product.price }} $</span>
           </p>
           <div class="actions">
-            <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+            <button @click="addItem(product)">
+              <i class="fa-solid fa-cart-plus"></i> Add to Cart
+            </button>
             <button @click="showDetails(product._id)">Details</button>
           </div>
         </div>
@@ -39,6 +41,9 @@
 </template>
 
 <script>
+import { isLogged } from "../../utils/localStorage";
+import { mapActions, mapGetters } from "vuex";
+
 export default {
   data: () => ({
     products: [],
@@ -58,9 +63,23 @@ export default {
         console.log("error in fetch categories:", err);
       });
   },
+  computed: {
+    ...mapGetters(["userId"]),
+  },
   methods: {
+    ...mapActions(["addCartItem"]),
+    addItem(item) {
+      if (!isLogged()) {
+        this.$router.push("/signin");
+      } else {
+        this.addCartItem({
+          userId: this.userId,
+          product: { ...item },
+        });
+      }
+    },
     showDetails(id) {
-      this.$router.push(`product/${id}`);
+      this.$router.push(`/product/${id}`);
     },
   },
 };

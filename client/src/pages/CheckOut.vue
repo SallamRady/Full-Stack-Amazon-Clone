@@ -1,23 +1,4 @@
 <template>
-  <div class="banner">
-    <div class="img">
-      <img
-        src="../assets/product/offers.jpg"
-        width="100%"
-        height="100%"
-        alt="ad on amazon"
-      />
-    </div>
-    <div class="summaryInfo">
-      <h3>Cart Summary Info</h3>
-      <br />
-      <h6>SubTotal ({{ cartQuantity }} &#160; items) : {{ totalAmount }} $</h6>
-      <br />
-      <button>
-        <i class="fa-solid fa-bag-shopping"></i>&#160;&#160;Check Out
-      </button>
-    </div>
-  </div>
   <div class="cartInfo">
     <h5 v-if="cart.length == 0">Your Shopping Cart is Empty</h5>
     <div v-else class="container">
@@ -29,7 +10,6 @@
           <div class="col"><b>Title</b></div>
           <div class="col"><b>Price</b></div>
           <div class="col"><b>Quantity</b></div>
-          <div class="col"><b>Actions</b></div>
         </li>
         <li class="table-row" v-for="item in cart" :key="item._id">
           <div class="col" data-label="Customer Name">
@@ -37,17 +17,6 @@
           </div>
           <div class="col" data-label="Amount">{{ item.price }}</div>
           <div class="col" data-label="Amount">{{ item.quantity }}</div>
-          <div class="col actions" data-label="Payment Status">
-            <button @click="addItem(item)">
-              <font-awesome-icon :icon="['fas', 'plus']" />
-            </button>
-            <button @click="decreaseItem(item)">
-              <font-awesome-icon :icon="['fas', 'minus']" />
-            </button>
-            <button @click="deleteItem(item)">
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </div>
         </li>
         <li class="table-header">
           <div class="col"><b>Total</b></div>
@@ -57,27 +26,31 @@
           <div class="col">
             <b>{{ cartQuantity }} item(s)</b>
           </div>
-          <div class="col" style="text-align: center">
-            <button @click="checkout" class="checkout">
-              <i class="fa-solid fa-bag-shopping"></i>&#160;&#160;Check Out
-            </button>
+          <div>
+            <stripe-checkout
+              ref="checkoutRef"
+              pk="pk_test_51Klc7QIx0ZhOngyz5j2cAjQoF9Y7fIsmB9Ff8uoLaeunzr0xU4okWrwYfpEkzpBvlyplFWoYrBqcfY0O89kiQPXE00m64qOgDl"
+              :session-id="sessionId"
+            />
+            <button  class="checkout" @click="submit">Checkout!</button>
           </div>
         </li>
       </ul>
     </div>
   </div>
-  <TheFooter />
 </template>
 
 <script>
-import TheFooter from "../components/layout/TheFooter.vue";
+import { StripeCheckout } from "@vue-stripe/vue-stripe";
 import { isLogged } from "../utils/localStorage";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
+import { ServerUrl } from "@/utils/global";
 
 export default {
-  components: { TheFooter },
+  components: { StripeCheckout },
   data: () => ({
     loading: false,
+    sessionId: "",
   }),
   computed: {
     ...mapGetters([
@@ -94,44 +67,29 @@ export default {
       this.$router.push("/signin");
     }
   },
+  beforeMount() {
+    let token = localStorage.getItem("token");
+
+    const body = JSON.stringify({
+      userId: this.userId,
+    });
+
+    fetch(ServerUrl + "checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        Authorization: "Bearer " + token,
+      },
+      body: body,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        this.sessionId = data.sessionId;
+      });
+  },
   methods: {
-    ...mapActions(["addCartItem", "decreaseCartItem", "deleteCartItem"]),
-    addItem(item) {
-      if (!isLogged()) {
-        this.$router.push("/signin");
-      } else {
-        this.addCartItem({
-          userId: this.userId,
-          product: { ...item },
-        });
-      }
-    },
-    decreaseItem(item) {
-      if (!isLogged()) {
-        this.$router.push("/signin");
-      } else {
-        this.decreaseCartItem({
-          userId: this.userId,
-          product: { ...item },
-        });
-      }
-    },
-    deleteItem(item) {
-      if (!isLogged()) {
-        this.$router.push("/signin");
-      } else {
-        this.deleteCartItem({
-          userId: this.userId,
-          product: { ...item },
-        });
-      }
-    },
-    checkout() {
-      if (!isLogged()) {
-        this.$router.push("/signin");
-      } else {
-        this.$router.push("/checkout");
-      }
+    submit() {
+      this.$refs.checkoutRef.redirectToCheckout();
     },
   },
 };

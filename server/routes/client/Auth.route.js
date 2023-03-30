@@ -5,6 +5,10 @@ const AuthController = require("../../controllers/client/Auth.controller");
 
 router.post(
   "/signup",
+  (req, res, next) => {
+    console.log("body", req.body);
+    next();
+  },
   /* validate incomming data */
   check("name").exists().notEmpty().withMessage("name is required!"),
   check("email").isEmail().withMessage("Email is invalid"),

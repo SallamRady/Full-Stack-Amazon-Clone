@@ -9,7 +9,7 @@
       />
     </router-link>
     <h2>Sing<span style="color: #fbc000">Up</span></h2>
-    <form action="login" method="post" @submit.prevent="signup">
+    <form action="login" method="post" @submit.prevent="handleSubmit">
       <div class="input-control">
         <label>Name *</label>
         <input
@@ -500,18 +500,22 @@ export default {
     },
   },
   methods: {
-    signup() {
+    // ...mapActions({ signup: 'signup' }),
+    handleSubmit() {
       //validate input
-      console.log(
-        this.name,
-        this.email,
-        this.password,
-        this.confirmPassword,
-        this.country,
-        this.state,
-        this.city,
-        this.postalCode
-      );
+      this.$store
+        .dispatch("signup", {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          confirmPassword: this.confirmPassword,
+          country: this.country,
+          state: this.state,
+          city: this.city,
+          postalCode: this.postalCode,
+          street: this.street,
+        });
+
       //send request
     },
   },
